@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "APINoiTu/routers"
+	"log"
 	"os"
 	"strconv"
 
@@ -22,9 +23,16 @@ func main() {
 	// }))
 	// beego.Run()
 
-	port, err := strconv.Atoi(os.Getenv("PORT"))
-	if err == nil {
-		beego.HttpPort = port
+	log.Println("Env $PORT :", os.Getenv("PORT"))
+	if os.Getenv("PORT") != "" {
+		port, err := strconv.Atoi(os.Getenv("PORT"))
+		if err != nil {
+			log.Fatal(err)
+			log.Fatal("$PORT must be set")
+		}
+		log.Println("port : ", port)
+		beego.BConfig.Listen.HTTPPort = port
+		beego.BConfig.Listen.HTTPSPort = port
 	}
 
 	beego.BConfig.WebConfig.DirectoryIndex = true
