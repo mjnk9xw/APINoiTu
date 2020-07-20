@@ -3,6 +3,7 @@ package controllers
 import (
 	"APINoiTu/models"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
@@ -28,12 +29,13 @@ var upGrader = websocket.Upgrader{
 // @Param	roomId		path 	string	true	"roomId"
 // @router /ws/:roomId [get]
 func (c *RoomController) WS(roomId string) {
-	ws, err := upGrader.Upgrade(c.Ctx.ResponseWriter, c.Ctx.Request, nil)
-	if err != nil {
-		fmt.Println("[Channel] ", ws, err)
-		return
-	}
-	defer ws.Close()
+	log.Println("[WS] = ", roomId)
+	// ws, err := upGrader.Upgrade(c.Ctx.ResponseWriter, c.Ctx.Request, nil)
+	// if err != nil {
+	// 	fmt.Println("[Channel] ", ws, err)
+	// 	return
+	// }
+	// defer ws.Close()
 
 	models.ServeWs(c.Ctx.ResponseWriter, c.Ctx.Request, roomId)
 }
