@@ -8,6 +8,13 @@
     },
     "basePath": "/v1",
     "paths": {
+        "/": {
+            "get": {
+                "tags": [
+                    "APINoiTu/controllersHomeController"
+                ]
+            }
+        },
         "/noitu/check": {
             "post": {
                 "tags": [
@@ -36,10 +43,10 @@
                 }
             }
         },
-        "/room/ws/{roomId}": {
+        "/ws/{roomId}/{username}": {
             "get": {
                 "tags": [
-                    "room"
+                    "APINoiTu/controllersRoomController"
                 ],
                 "parameters": [
                     {
@@ -48,14 +55,21 @@
                         "description": "roomId",
                         "required": true,
                         "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "username",
+                        "description": "username",
+                        "required": true,
+                        "type": "string"
                     }
                 ]
             }
         },
-        "/room/{roomId}": {
+        "/{roomId}/{username}": {
             "get": {
                 "tags": [
-                    "room"
+                    "APINoiTu/controllersRoomController"
                 ],
                 "description": "Get roomId",
                 "operationId": "RoomController.ViewRoom",
@@ -64,6 +78,13 @@
                         "in": "path",
                         "name": "roomId",
                         "description": "roomId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "username",
+                        "description": "username",
                         "required": true,
                         "type": "string"
                     }
@@ -82,27 +103,11 @@
     "definitions": {
         "models.BodyCheck": {
             "title": "BodyCheck",
-            "type": "object",
-            "properties": {
-                "pre_seq": {
-                    "type": "string"
-                },
-                "seq": {
-                    "type": "string"
-                }
-            }
+            "type": "object"
         },
         "models.BoolResponse": {
             "title": "BoolResponse",
-            "type": "object",
-            "properties": {
-                "data": {
-                    "type": "boolean"
-                },
-                "error_mess": {
-                    "type": "string"
-                }
-            }
+            "type": "object"
         },
         "responses.BoolResponse": {
             "title": "BoolResponse",

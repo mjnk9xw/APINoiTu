@@ -11,3 +11,7 @@ type Controller struct {
 type RoomController struct {
 	beego.Controller
 }
+
+type HomeController struct {
+	beego.Controller
+}

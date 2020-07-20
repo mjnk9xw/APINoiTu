@@ -9,13 +9,22 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+
+	lrucache "github.com/hashicorp/golang-lru"
 )
 
 type Models struct {
+	cacheRoom *lrucache.Cache
+	cacheUser *lrucache.Cache
 }
 
 func newModels() *Models {
-	return &Models{}
+	cacheRoom, _ := lrucache.New(1024 * 1024)
+	cacheUser, _ := lrucache.New(1024 * 1024)
+	return &Models{
+		cacheRoom: cacheRoom,
+		cacheUser: cacheUser,
+	}
 }
 
 func (m *Models) CheckTu(preSeq, seq string) (bool, error) {
@@ -82,6 +91,7 @@ func (m *Models) callAPIvtudien(seq string) bool {
 	reqOK := m.splitString(string(body), seq)
 	return reqOK
 }
+
 func (m *Models) splitString(allStr string, seq string) bool {
 	listString := strings.Split(allStr, "||")
 	for _, v := range listString {

@@ -35,6 +35,9 @@ type connection struct {
 
 	// Buffered channel of outbound messages.
 	send chan []byte
+
+	username string
+	ip       string
 }
 
 // readPump pumps messages from the websocket connection to the hub.
@@ -55,7 +58,13 @@ func (s subscription) readPump() {
 			}
 			break
 		}
-		m := message{msg, s.room}
+
+		msg = []byte(c.ip + "//__" + c.username + "//__" + string(msg))
+		m := message{
+			data: msg,
+			room: s.room,
+		}
+
 		H.broadcast <- m
 	}
 }
@@ -81,6 +90,7 @@ func (s *subscription) writePump() {
 				c.write(websocket.CloseMessage, []byte{})
 				return
 			}
+
 			if err := c.write(websocket.TextMessage, message); err != nil {
 				return
 			}
@@ -93,16 +103,23 @@ func (s *subscription) writePump() {
 }
 
 // serveWs handles websocket requests from the peer.
-func ServeWs(w http.ResponseWriter, r *http.Request, roomId string) {
+func ServeWs(w http.ResponseWriter, r *http.Request, roomId, username, ip string) {
 	fmt.Print(roomId)
 	ws, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err.Error())
 		return
 	}
-	c := &connection{send: make(chan []byte, 256), ws: ws}
+
+	// check room
+
+	c := &connection{send: make(chan []byte, 256), ws: ws, username: username, ip: ip}
 	s := subscription{c, roomId}
 	H.register <- s
+
+	//  lấy các tin nhắn
 	go s.writePump()
+
+	// ghi tin nhắn
 	go s.readPump()
 }
