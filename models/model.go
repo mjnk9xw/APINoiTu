@@ -69,7 +69,6 @@ func (m *Models) callAPIvtudien(seq string) bool {
 		log.Println("Server error")
 		return false
 	}
-	// r.Header.Add("Authorization", "auth_token=\"XXXXXXX\"")
 	r.Header.Add("Content-Type", "application/x-www-form-urlencoded")
 	r.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
 

@@ -7,3 +7,7 @@ import (
 type Controller struct {
 	beego.Controller
 }
+
+type RoomController struct {
+	beego.Controller
+}

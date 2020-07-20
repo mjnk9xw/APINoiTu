@@ -17,6 +17,14 @@ func init() {
 			),
 		),
 	)
+	ns2 := beego.NewNamespace("/chatrooms",
+		beego.NSNamespace("/room",
+			beego.NSInclude(
+				&controllers.RoomController{},
+			),
+		),
+	)
 
 	beego.AddNamespace(ns)
+	beego.AddNamespace(ns2)
 }

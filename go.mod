@@ -6,6 +6,7 @@ require (
 	github.com/astaxie/beego v1.12.2
 	github.com/beorn7/perks v1.0.1
 	github.com/golang/protobuf v1.4.2
+	github.com/gorilla/websocket v1.4.2
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/matttproud/golang_protobuf_extensions v1.0.1
 	github.com/prometheus/client_golang v1.7.0

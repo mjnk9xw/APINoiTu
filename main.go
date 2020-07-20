@@ -6,6 +6,8 @@ import (
 	"os"
 	"strconv"
 
+	"APINoiTu/models"
+
 	"github.com/astaxie/beego"
 )
 
@@ -45,6 +47,9 @@ func main() {
 	// 	ExposeHeaders:    []string{"Content-Length", "Access-Control-Allow-Origin", "Content-Type"},
 	// 	AllowCredentials: true,
 	// }))
+
+	go models.H.Run()
+
 	beego.Run()
 
 }
