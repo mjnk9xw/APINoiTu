@@ -8,7 +8,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/hashicorp/golang-lru v0.5.4
 	github.com/matttproud/golang_protobuf_extensions v1.0.1
-	github.com/prometheus/client_golang v1.1.0
+	github.com/prometheus/client_golang v1.7.0
 	github.com/prometheus/client_model v0.2.0
 	github.com/prometheus/common v0.10.0
 	github.com/prometheus/procfs v0.1.3
