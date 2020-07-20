@@ -2,6 +2,8 @@ package main
 
 import (
 	_ "APINoiTu/routers"
+	"os"
+	"strconv"
 
 	"github.com/astaxie/beego"
 )
@@ -20,10 +22,10 @@ func main() {
 	// }))
 	// beego.Run()
 
-	// port, err := strconv.Atoi(os.Getenv("PORT"))
-	// if err == nil {
-	// 	beego.HttpPort = port
-	// }
+	port, err := strconv.Atoi(os.Getenv("PORT"))
+	if err == nil {
+		beego.HttpPort = port
+	}
 
 	beego.BConfig.WebConfig.DirectoryIndex = true
 	beego.BConfig.WebConfig.StaticDir["/v1/noitu/swagger"] = "swagger"
