@@ -19,6 +19,9 @@ func newModels() *Models {
 }
 
 func (m *Models) CheckTu(preSeq, seq string) (bool, error) {
+
+	preSeq = strings.ToLower(preSeq)
+	seq = strings.ToLower(seq)
 	if preSeq == "" || seq == "" {
 		return false, errors.New("Từ gửi lên trống")
 	}
