@@ -63,10 +63,12 @@
 			"revisionTime": "2019-07-31T12:00:54Z"
 		},
 		{
-			"checksumSHA1": "dBlNHAAacvuK/PoHhqNgz/DBu9s=",
+			"checksumSHA1": "0c6eUG8Owir5P65Cd7xKrXyJc3k=",
 			"path": "github.com/cespare/xxhash",
-			"revision": "d7df74196a9e781ede915320c11c378c1b2f3a1f",
-			"revisionTime": "2019-11-14T17:47:13Z"
+			"revision": "3b82fb7d186719faeedd0c2864f868c74fbf79a1",
+			"revisionTime": "2019-01-04T01:26:12Z",
+			"version": "=v2.0.0",
+			"versionExact": "v2.0.0"
 		},
 		{
 			"path": "github.com/cespare/xxhash/v2",
