@@ -22,10 +22,12 @@ func (m *Models) CheckTu(preSeq, seq string) (bool, error) {
 
 	preSeq = strings.ToLower(preSeq)
 	seq = strings.ToLower(seq)
+	preSeq = strings.TrimSpace(preSeq)
+	seq = strings.TrimSpace(seq)
 	if preSeq == "" || seq == "" {
 		return false, errors.New("Từ gửi lên trống")
 	}
-	if len(preSeq) > 14 || len(seq) > 14 {
+	if len(preSeq) > 15 || len(seq) > 15 {
 		return false, errors.New("Từ quá dài > 14 kí tự")
 	}
 
