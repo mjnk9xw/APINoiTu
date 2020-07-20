@@ -1,0 +1,42 @@
+swagger: "2.0"
+info:
+  title: beego API Nối từ
+  description: API by minh nguyễn dev
+  version: 1.0.0
+basePath: /v1
+paths:
+  /noitu/check:
+    post:
+      tags:
+      - noitu
+      description: API check
+      operationId: Controller.API Check
+      parameters:
+      - in: body
+        name: body
+        description: body param
+        required: true
+        schema:
+          $ref: '#/definitions/models.BodyCheck'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.BoolResponse'
+definitions:
+  models.BodyCheck:
+    title: BodyCheck
+    type: object
+    properties:
+      pre_seq:
+        type: string
+      seq:
+        type: string
+  models.BoolResponse:
+    title: BoolResponse
+    type: object
+    properties:
+      data:
+        type: boolean
+      error_mess:
+        type: string
