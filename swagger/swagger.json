@@ -35,6 +35,48 @@
                     }
                 }
             }
+        },
+        "/room/ws/{roomId}": {
+            "get": {
+                "tags": [
+                    "room"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "roomId",
+                        "description": "roomId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/room/{roomId}": {
+            "get": {
+                "tags": [
+                    "room"
+                ],
+                "description": "Get roomId",
+                "operationId": "RoomController.ViewRoom",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "roomId",
+                        "description": "roomId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/responses.BoolResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -61,6 +103,10 @@
                     "type": "string"
                 }
             }
+        },
+        "responses.BoolResponse": {
+            "title": "BoolResponse",
+            "type": "object"
         }
     }
 }

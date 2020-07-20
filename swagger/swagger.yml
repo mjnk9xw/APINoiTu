@@ -23,6 +23,33 @@ paths:
           description: ""
           schema:
             $ref: '#/definitions/models.BoolResponse'
+  /room/{roomId}:
+    get:
+      tags:
+      - room
+      description: Get roomId
+      operationId: RoomController.ViewRoom
+      parameters:
+      - in: path
+        name: roomId
+        description: roomId
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/responses.BoolResponse'
+  /room/ws/{roomId}:
+    get:
+      tags:
+      - room
+      parameters:
+      - in: path
+        name: roomId
+        description: roomId
+        required: true
+        type: string
 definitions:
   models.BodyCheck:
     title: BodyCheck
@@ -40,3 +67,6 @@ definitions:
         type: boolean
       error_mess:
         type: string
+  responses.BoolResponse:
+    title: BoolResponse
+    type: object
