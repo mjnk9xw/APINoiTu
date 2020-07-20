@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "title": "beego API Nối từ",
+        "title": "API Nối từ",
         "description": "API by minh nguyễn dev",
         "version": "1.0.0",
         "contact": {}
