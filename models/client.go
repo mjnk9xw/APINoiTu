@@ -1,6 +1,7 @@
 package models
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -40,6 +41,12 @@ type connection struct {
 	ip       string
 }
 
+type Mess struct {
+	Username string `json:"username"`
+	Ip       string `json:"ip"`
+	MessStr  string `json:"mess"`
+}
+
 // readPump pumps messages from the websocket connection to the hub.
 func (s subscription) readPump() {
 	c := s.conn
@@ -59,13 +66,23 @@ func (s subscription) readPump() {
 			break
 		}
 
-		msg = []byte(c.ip + "//__" + c.username + "//__" + string(msg))
-		m := message{
-			data: msg,
-			room: s.room,
-		}
+		if string(msg) == "start_game_room_wss" {
+			H.startchan <- s
+		} else {
+			// msg = []byte(c.ip + "//__" + c.username + "//__" + string(msg))
+			mess := &Mess{
+				Ip:       c.ip,
+				Username: c.username,
+				MessStr:  string(msg),
+			}
+			msg, _ := json.Marshal(mess)
+			m := message{
+				data: msg,
+				room: s.room,
+			}
 
-		H.broadcast <- m
+			H.broadcast <- m
+		}
 	}
 }
 

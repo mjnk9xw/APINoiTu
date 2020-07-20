@@ -20,11 +20,18 @@
                 if (!conn) {
                     return false;
                 }
-                if (!msg.value) {
-                    return false;
+
+                if (document.getElementById("submit_form").value === "Bắt đầu game"){
+                    console.log("Start")
+                    document.getElementById("submit_form").value = "Gửi"
+                    conn.send("start_game_room_wss")
+                } else {
+                    if (!msg.value) {
+                        return false;
+                    }
+                    conn.send(msg.value);
+                    msg.value = "";
                 }
-                conn.send(msg.value);
-                msg.value = "";
                 return false;
             };
 
@@ -34,7 +41,7 @@
                 console.log(roomId)
                 console.log(username)
                 conn = new WebSocket("wss://" + document.location.host + "/room/ws/" + roomId + "/" + username);
-                {% comment %} conn = new WebSocket("ws://" + document.location.host + "/room/ws/" + roomId + "/" + username); {% endcomment %}
+                //conn = new WebSocket("ws://" + document.location.host + "/room/ws/" + roomId + "/" + username);
                 conn.onclose = function (evt) {
                     let item = document.createElement("div");
                     item.innerHTML = "<b>Connection closed.</b>";
@@ -44,10 +51,39 @@
                     let messages = evt.data.split('\n');
                     for (let i = 0; i < messages.length; i++) {
                         let item = document.createElement("div");
-                        let messSplit = messages[i].split('//__');
-                        console.log(messSplit)
-                        item.innerHTML = "<b>" + messSplit[1] + " : </b>" + messSplit[2];
+                        console.log(messages[i])
+                        var obj_mess = JSON.parse(messages[i])
+                        if ( obj_mess.mess.username === username ){
+                            item.innerHTML = "<b> Tôi : </b>" + obj_mess.mess.mess;
+                        } else {
+                            item.innerHTML = "<b>" + obj_mess.mess.username + " : </b>" + obj_mess.mess.mess;
+                        }
                         appendLog(item);
+
+                        var ul=document.getElementById("disc");
+                        ul.innerHTML = ''; 
+                        for (var j = 0; j < obj_mess.list_acc.length; j++){
+                           
+                            var li=document.createElement('li');
+                            if ( obj_mess.list_acc[j].not_kill === true){
+                                li.innerHTML= "<mark>" +  obj_mess.list_acc[j].name + "</mark>";
+                            } else {
+                                li.innerHTML= "<strike>" + obj_mess.list_acc[j].name + "</strike>";
+                            }
+                            ul.appendChild(li);
+
+                            if((obj_mess.acc_next === username) && (obj_mess.list_acc[j].name == username)){
+                                var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 60 * 1000);
+                                setTimeRemaining(deadline)
+                            } else {
+                                var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 0 * 1000);
+                                setTimeRemaining(deadline)
+                            }
+
+                            if (obj_mess.acc_next === "") {
+
+                            }
+                        }
                     }
                 };
             } else {
@@ -81,10 +117,10 @@
             right: 0.5em;
             bottom: 3em;
             overflow: scroll;
-            top: 240px;
+            top: 420px;
         }
 
-        #form {
+        #form  {
             padding: 0 0.5em 0 0.5em;
             margin: 0;
             position: absolute;
@@ -116,48 +152,53 @@
         </div>
         </div>
         
-            <script type='text/javascript'>
-        //<![CDATA[
-        function getTimeRemaining(endtime) {
-        var t = Date.parse(endtime) - Date.parse(new Date());
-        var seconds = Math.floor((t / 1000) % 60);
-        var minutes = Math.floor((t / 1000 / 60) % 60);
-        return {
-            'total': t,
-            'minutes': minutes,
-            'seconds': seconds
-        };
-        }
-
-        function initializeClock(id, endtime) {
-        var clock = document.getElementById(id);
-        var minutesSpan = clock.querySelector('.minutes');
-        var secondsSpan = clock.querySelector('.seconds');
-
-        function updateClock() {
-            var t = getTimeRemaining(endtime);
-            minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
-            secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
-
-            if (t.total <= 0) {
-            clearInterval(timeinterval);
+        <script type='text/javascript'>
+            function getTimeRemaining(endtime) {
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            return {
+                'total': t,
+                'minutes': minutes,
+                'seconds': seconds
+            };
             }
-        }
 
-        updateClock();
-        var timeinterval = setInterval(updateClock, 1000);
-        }
+            function setTimeRemaining(endtime) {
+                endtime = endtime
+            }
 
-        var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 60 * 1000);
-        initializeClock('clockdiv', deadline);
-        //]]>
+            function initializeClock(id, endtime) {
+            var clock = document.getElementById(id);
+            var minutesSpan = clock.querySelector('.minutes');
+            var secondsSpan = clock.querySelector('.seconds');
+
+            function updateClock() {
+                var t = getTimeRemaining(endtime);
+                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                if (t.total <= 0) {
+                clearInterval(timeinterval);
+                }
+            }
+
+            updateClock();
+            var timeinterval = setInterval(updateClock, 1000);
+            }
+            var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 0 * 1000);
+            initializeClock('clockdiv', deadline);
         </script>
     </div>
     <div>
+        <div>
+            <ul id="disc">
+            </ul>
+        </div>
         <div id="log"></div>
         <form id="form">
             <input type="text" id="msg" size="64" autofocus/>
-            <input type="submit" value="Send"/>
+            <input type="submit" id="submit_form" value="Bắt đầu game"/>
         </form>
     </div>
 </body>
