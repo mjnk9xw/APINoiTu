@@ -63,6 +63,12 @@
 			"revisionTime": "2019-07-31T12:00:54Z"
 		},
 		{
+			"checksumSHA1": "dBlNHAAacvuK/PoHhqNgz/DBu9s=",
+			"path": "github.com/cespare/xxhash",
+			"revision": "d7df74196a9e781ede915320c11c378c1b2f3a1f",
+			"revisionTime": "2019-11-14T17:47:13Z"
+		},
+		{
 			"path": "github.com/cespare/xxhash/v2",
 			"revision": ""
 		},
@@ -113,6 +119,12 @@
 			"path": "github.com/matttproud/golang_protobuf_extensions/pbutil",
 			"revision": "c182affec369e30f25d3eb8cd8a478dee585ae7d",
 			"revisionTime": "2018-12-31T17:19:20Z"
+		},
+		{
+			"checksumSHA1": "kkJ5Y0GWprMPM+DzPPkDHKd7pDo=",
+			"path": "github.com/prometheus/client_golang",
+			"revision": "d3accfda2168b0e253f98cff3ef81586e8b88d9f",
+			"revisionTime": "2020-07-06T13:16:39Z"
 		},
 		{
 			"checksumSHA1": "DnIJNFbVa3PjKtSHXBh3s5O9rkg=",
