@@ -6,15 +6,21 @@
 <div class="container" style="width: 500px;">
     <h3>Trò chơi được phát triển bởi minhnv</h3>
     <br>
-    <form action="/join" method="post" class="form-horizontal">
+    <form action="/room/" method="get" class="form-horizontal">
         <div class="form-group">
             <label class="col-md-3 control-label">Tên của bạn: </label>
             <div class="col-md-5">
-                  <input type="text" class="form-control" name="uname" required>
+                  <input type="text" class="form-control" name="username" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-3 control-label">Phòng: </label>
+            <div class="col-md-5">
+                  <input type="text" class="form-control" name="roomId" required>
             </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label class="col-md-3 control-label">Tôi muốn: </label>
             <div class="col-md-5">
                 <select class="form-control" name="type">
@@ -23,7 +29,7 @@
                     <option value="join">vào phòng chơi số</option>
                 </select>
             </div>
-        </div>
+        </div> -->
 
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-10">

@@ -27,13 +27,10 @@ func init() {
 
     beego.GlobalControllerRouter["APINoiTu/controllers:RoomController"] = append(beego.GlobalControllerRouter["APINoiTu/controllers:RoomController"],
         beego.ControllerComments{
-            Method: "GETRoomId",
-            Router: "/:roomId/:username",
+            Method: "ViewRoom",
+            Router: "/",
             AllowHTTPMethods: []string{"get"},
-            MethodParams: param.Make(
-				param.New("roomId", param.IsRequired, param.InPath),
-				param.New("username", param.IsRequired, param.InPath),
-			),
+            MethodParams: param.Make(),
             Filters: nil,
             Params: nil})
 

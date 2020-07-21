@@ -41,7 +41,7 @@
                 console.log(roomId)
                 console.log(username)
                 conn = new WebSocket("wss://" + document.location.host + "/room/ws/" + roomId + "/" + username);
-                //conn = new WebSocket("ws://" + document.location.host + "/room/ws/" + roomId + "/" + username);
+                // conn = new WebSocket("ws://" + document.location.host + "/room/ws/" + roomId + "/" + username);
                 conn.onclose = function (evt) {
                     let item = document.createElement("div");
                     item.innerHTML = "<b>Connection closed.</b>";
@@ -76,7 +76,7 @@
                                 var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 60 * 1000);
                                 setTimeRemaining(deadline)
                             } else {
-                                var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 0 * 1000);
+                                var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 1 * 1000);
                                 setTimeRemaining(deadline)
                             }
 
@@ -186,7 +186,7 @@
             updateClock();
             var timeinterval = setInterval(updateClock, 1000);
             }
-            var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 0 * 1000);
+            var deadline = new Date(Date.parse(new Date()) + 1 * 1 * 1 * 1 * 1000);
             initializeClock('clockdiv', deadline);
         </script>
     </div>

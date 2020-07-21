@@ -9,28 +9,6 @@ paths:
     get:
       tags:
       - APINoiTu/controllersHomeController
-  /{roomId}/{username}:
-    get:
-      tags:
-      - APINoiTu/controllersRoomController
-      description: Get roomId
-      operationId: RoomController.ViewRoom
-      parameters:
-      - in: path
-        name: roomId
-        description: roomId
-        required: true
-        type: string
-      - in: path
-        name: username
-        description: username
-        required: true
-        type: string
-      responses:
-        "200":
-          description: ""
-          schema:
-            $ref: '#/definitions/responses.BoolResponse'
   /noitu/check:
     post:
       tags:
@@ -68,9 +46,16 @@ definitions:
   models.BodyCheck:
     title: BodyCheck
     type: object
+    properties:
+      pre_seq:
+        type: string
+      seq:
+        type: string
   models.BoolResponse:
     title: BoolResponse
     type: object
-  responses.BoolResponse:
-    title: BoolResponse
-    type: object
+    properties:
+      data:
+        type: boolean
+      error_mess:
+        type: string
